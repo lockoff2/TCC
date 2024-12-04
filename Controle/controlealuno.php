@@ -3,28 +3,28 @@
 include_once  __DIR__ . '/../Banco/conexao.php';
 
 
-class controleprofessor{
+class controlealuno{
 
- public function todosprofessores() {
+ public function todosalunos() {
             $conexao = new Conexao();
             $conexao = $conexao->conexao();
-            $stmt = $conexao->prepare("SELECT * FROM professor;");
+            $stmt = $conexao->prepare("SELECT * FROM aluno;");
             $stmt->execute();
             $professor = $stmt->fetchAll();
             $stmt = null;
             return $professor;
         }
 
-        public function cadastrarprofessor(Professor $professor) {
+        public function cadastraraluno(Aluno $aluno) {
             $conexao = new Conexao();
             $conexao = $conexao->conexao();
-            $sql = "INSERT INTO professor(nome, cpf, email, senha, curso) VALUES(:enome, :ecpf, :eemail, :esenha, :ecurso);";
+            $sql = "INSERT INTO aluno(nome, cpf, email, senha, curso) VALUES(:enome, :ecpf, :eemail, :esenha, :ecurso);";
             $pstmt = $conexao->prepare($sql);
-            $pstmt->bindValue(':enome', $professor->getNome());
-            $pstmt->bindValue(':ecpf', $professor->getCpf());
-            $pstmt->bindValue(':eemail',$professor->getEmail());
-            $pstmt->bindValue(':esenha', $professor->getSenha());
-            $pstmt->bindValue(':ecurso', $professor->getCurso());
+            $pstmt->bindValue(':enome', $aluno->getNome());
+            $pstmt->bindValue(':ecpf', $aluno->getCpf());
+            $pstmt->bindValue(':eemail',$aluno->getEmail());
+            $pstmt->bindValue(':esenha', $aluno->getSenha());
+            $pstmt->bindValue(':ecurso', $aluno->getCurso());
             $result =  $pstmt->execute();
             return $result;
         }
@@ -32,7 +32,7 @@ class controleprofessor{
         public function login($email, $senha) {
             $conexao = new Conexao();
             $conexao = $conexao->conexao();  
-            $pstmt = $conexao->prepare("SELECT id, nome, cpf, email, senha  FROM professor WHERE email = :email AND senha = :senha");
+            $pstmt = $conexao->prepare("SELECT id, nome, cpf, email, senha  FROM aluno WHERE email = :email AND senha = :senha");
             $pstmt->execute(array('email' => $email, 'senha' => $senha));
             if ($pstmt->rowcount() > 0) {
                 $result = $pstmt->fetch();

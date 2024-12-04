@@ -20,6 +20,62 @@ private $email;
     }
 }
 
+function atualizar($atributos) {
+    foreach ($atributos as $atributo => $valor) {
+        if(isset($valor) && property_exists(get_class($this), $atributo)){			
+            $this->$atributo = $valor;				
+        }
+    }
+}
+
+public function getId() {
+    return $this->id;
+}
+
+public function getCurso() {
+    return $this->curso;
+}
+
+public function getEmail() {
+    return $this->email;
+}
+
+public function getSenha() {
+    return $this->senha;
+}
+
+public function setId($id) {
+    $this->id = $id;
+}
+
+public function setCurso($curso) {
+    $this->curso = $curso;
+}
+
+public function setEmail($email) {
+    $this->email = $email;
+}
+
+public function setSenha($senha) {
+    $this->senha = $senha;
+}
+
+public function setCpf($cpf) {
+    $this->cpf = $cpf;
+}
+
+public function getcpf() {
+    return $this->cpf;
+}
+
+public function getNome() {
+    return $this->nome;
+}
+
+public function setNome($nome) {
+    $this->nome = $nome;
+}
+
 }
 
 
