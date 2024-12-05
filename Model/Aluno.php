@@ -4,7 +4,6 @@ class Aluno{
     private $nome;
     private $email;
     private $cpf;
-    private $curso;
     private $senha;
 
     public function __construct() {
@@ -30,9 +29,6 @@ class Aluno{
 		return $this->id;
 	}
 	
-	public function getCurso() {
-		return $this->curso;
-	}
 	
 	public function getEmail() {
 		return $this->email;
@@ -46,9 +42,6 @@ class Aluno{
 		$this->id = $id;
 	}
 	
-	public function setCurso($curso) {
-		$this->curso = $curso;
-	}
 	
 	public function setEmail($email) {
 		$this->email = $email;

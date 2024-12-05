@@ -18,13 +18,12 @@ class controleprofessor{
         public function cadastrarprofessor(Professor $professor) {
             $conexao = new Conexao();
             $conexao = $conexao->conexao();
-            $sql = "INSERT INTO professor(nome, cpf, email, senha, curso) VALUES(:enome, :ecpf, :eemail, :esenha, :ecurso);";
+            $sql = "INSERT INTO professor(nome, cpf, email, senha ) VALUES(:enome, :ecpf, :eemail, :esenha);";
             $pstmt = $conexao->prepare($sql);
             $pstmt->bindValue(':enome', $professor->getNome());
             $pstmt->bindValue(':ecpf', $professor->getCpf());
             $pstmt->bindValue(':eemail',$professor->getEmail());
             $pstmt->bindValue(':esenha', $professor->getSenha());
-            $pstmt->bindValue(':ecurso', $professor->getCurso());
             $result =  $pstmt->execute();
             return $result;
         }

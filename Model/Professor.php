@@ -6,7 +6,7 @@ class Professor{
 private $cpf; 
 private $email;
  
- private $curso;
+
  private $senha;
  
  public function __construct() {
@@ -32,9 +32,7 @@ public function getId() {
     return $this->id;
 }
 
-public function getCurso() {
-    return $this->curso;
-}
+
 
 public function getEmail() {
     return $this->email;
@@ -48,9 +46,6 @@ public function setId($id) {
     $this->id = $id;
 }
 
-public function setCurso($curso) {
-    $this->curso = $curso;
-}
 
 public function setEmail($email) {
     $this->email = $email;

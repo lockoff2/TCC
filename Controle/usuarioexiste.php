@@ -1,40 +1,50 @@
-
 <?php
 
 
-	include_once  __DIR__ . '/../Model/Usuario.php';
-	include_once 'addusuario.php';
+	include_once  __DIR__ . '/../Model/Aluno.php';
+	include_once  __DIR__ . '/../Model/Professor.php';
+	include_once 'addAluno.php';
+	include_once 'addProfessor.php';
 
-	if(isset($_POST['email']) and isset($_POST['cpf']) and isset($_POST['nome']) and isset($_POST['senha'])and isset($_POST['cidade'])){ 
-		
-		$usuario = new Usuario();
-	    $email = $_POST['email'];
-	 	$cpf = $_POST['cpf'];
-        $usuario->setNome($_POST['nome']);
-		$usuario->setSenha($_POST['senha']);
-		$usuario->setCidade($_POST['cidade']);
-	 	$usuario->setEmail($email);
-		$usuario->setCpf($cpf);
-	 	
+	if (isset($_POST['email'], $_POST['cpf'], $_POST['nome'], $_POST['senha'], $_POST['cidade'], $_POST['tipoUsuario'])) { 
+		$aluno = new Aluno();
+		$professor = new Professor();
+		$email = $_POST['email'];
+		$cpf = $_POST['cpf'];
+	
+
+		$tipo = $_POST['tipoUsuario'];
+	
+		if (!$tipo) {
+			echo "
+				<script type=\"text/javascript\">
+					alert(\"Por favor, selecione se você é Aluno ou Professor.\");
+				</script>
+			";
+			exit;
+		}
+	
 	 	$conexao = new Conexao();
         $conexao = $conexao->conexao();
-        $stmt = $conexao->prepare('SELECT * FROM usuario WHERE email = "'.$email.'"');
-        $stmt->execute();
+        $stmtEmail = $conexao->prepare('SELECT * FROM aluno WHERE email = :email UNION SELECT * FROM professor WHERE email = :email');
+    	$stmtEmail->bindParam(':email', $email);
+    	$stmtEmail->execute();
+
+    	$stmtCpf = $conexao->prepare('SELECT * FROM aluno WHERE cpf = :cpf UNION SELECT * FROM professor WHERE cpf = :cpf');
+    	$stmtCpf->bindParam(':cpf', $cpf);
+    	$stmtCpf->execute();
+
+    	$countEmail = $stmtEmail->rowCount();
+   	 	$countCpf = $stmtCpf->rowCount();
 		
-		$stmt2 = $conexao->prepare('SELECT * FROM usuario WHERE cpf = "'.$cpf.'"');
-        $stmt2->execute();
-       
-        $count2 = $stmt2->rowCount();
-		$count = $stmt->rowCount();
-		
-	    if($count > 0){
+	    if($countEmail > 0){
 	        echo "
 				<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=../../vendinha/cadastro.php'>
 				<script type=\"text/javascript\">
 					alert(\"Email já existente, por favor digite outro!\");
 				</script>
 				";
-	    }else if( $count2 > 0){
+	    }else if( $countCpf > 0){
 	        echo "
 				<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=../../vendinha/cadastro.php'>
 				<script type=\"text/javascript\">
@@ -42,7 +52,19 @@
 				</script>
 				";
 		}else{
-	    	addCliente($usuario);
+	    	if ($tipo === "Aluno") {
+				$aluno->setNome($_POST['nome']);
+				$aluno->setSenha($_POST['senha']);
+				$aluno->setEmail($email);
+				$aluno->setCpf($cpf);
+				addAluno($aluno);
+			} elseif ($tipo === "Professor") {
+				$professor->setNome($_POST['nome']);
+				$professor->setSenha($_POST['senha']);
+				$professor->setEmail($email);
+				$professor->setCpf($cpf);
+				addProfessor($professor); 
+			}
 	    }
 	}
 ?>

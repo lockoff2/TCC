@@ -24,7 +24,7 @@
     <div class="container">
         <div class="form-container">
             <h2>Cadastro</h2>
-            <form action="Controle/usuarioexiste.php" method="post">
+            <form action="../Controle/usuarioexiste.php" method="post">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="tipoUsuario" id="aluno" value="Aluno">
                     <label class="form-check-label" for="aluno">Aluno</label>

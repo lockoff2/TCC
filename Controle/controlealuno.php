@@ -18,13 +18,12 @@ class controlealuno{
         public function cadastraraluno(Aluno $aluno) {
             $conexao = new Conexao();
             $conexao = $conexao->conexao();
-            $sql = "INSERT INTO aluno(nome, cpf, email, senha, curso) VALUES(:enome, :ecpf, :eemail, :esenha, :ecurso);";
+            $sql = "INSERT INTO aluno(nome, cpf, email, senha) VALUES(:enome, :ecpf, :eemail, :esenha);";
             $pstmt = $conexao->prepare($sql);
             $pstmt->bindValue(':enome', $aluno->getNome());
             $pstmt->bindValue(':ecpf', $aluno->getCpf());
             $pstmt->bindValue(':eemail',$aluno->getEmail());
             $pstmt->bindValue(':esenha', $aluno->getSenha());
-            $pstmt->bindValue(':ecurso', $aluno->getCurso());
             $result =  $pstmt->execute();
             return $result;
         }
