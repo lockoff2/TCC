@@ -47,7 +47,9 @@ class controleprofessor{
         }
 
         public function logout(){
+            $_SESSION['logged_in'] = false;
             session_destroy();
+            header('Location: ../Telas/login.php');
         }
 
         public function returnid() {

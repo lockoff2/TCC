@@ -14,31 +14,45 @@ if (isset($_POST['entrar'])) {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    if ($user->login($email, $senha)) {
-        header('Location:Index.php');
-    } else {
-        echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL= login.php'>
-						<script type=\"text/javascript\">
-							alert(\"Senha ou email incorretos!\");
-						</script>
-						";
+    $conexao = new Conexao();
+    $conexao = $conexao->conexao();
+
+    $stmtAluno = $conexao->prepare("SELECT * FROM aluno WHERE email = :email AND senha = :senha");
+    $stmtAluno->bindParam(':email', $email);
+    $stmtAluno->bindParam(':senha', $senha);
+    $stmtAluno->execute();
+
+    $stmtProfessor = $conexao->prepare("SELECT * FROM professor WHERE email = :email AND senha = :senha");
+    $stmtProfessor->bindParam(':email', $email);
+    $stmtProfessor->bindParam(':senha', $senha);
+    $stmtProfessor->execute();
+
+    if ($stmtAluno->rowCount() > 0) {
+
+        if ($aluno->login($email, $senha)) {
+            header('Location:Aluno.php');
+        } else {
+            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL= login.php'>
+						    <script type=\"text/javascript\">
+							    alert(\"Senha ou email incorretos!\");
+						    </script>
+						    ";
+    } 
+
+    } elseif($stmtProfessor->rowCount() > 0){
+        if ($professor->login($email, $senha)) {
+            header('Location:Professor.php');
+        } else {
+            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL= login.php'>
+						    <script type=\"text/javascript\">
+							    alert(\"Senha ou email incorretos!\");
+						    </script>
+						    ";
+        }
     }
 }
 
-$resulta = $aluno->isLoggedIn();
-$resultp = $professor->isLoggedIn();
 
-if ($resulta || $resultp) {
-    
-    if ($resulta) {
-        echo "Bem-vindo, Aluno!";
-        header('Location:Telas/Aluno.php');
-    } elseif ($resultp) {
-        echo "Bem-vindo, Professor!";
-        header('Location:Telas/Professor.php');
-    }
-} 
-    header('Location:index.php');
 
 
 
@@ -53,13 +67,15 @@ if ($resulta || $resultp) {
     <title>Login e Cadastro</title>
     <link rel="stylesheet" type="text/css" href="../CSS/login.css">
     <script type="text/javascript" src="../JS/login.js"></script>
-    <script>function navAnuncios() {
+    <script>
+        function navAnuncios() {
             var anuncio = document.getElementById("anuncios");
             if (anuncio.onclick) {
                 alert("Você precisa logar no sistema!");
             }
 
-        }</script>
+        }
+    </script>
 </head>
 
 <body>

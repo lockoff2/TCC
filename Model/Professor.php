@@ -6,7 +6,6 @@ class Professor{
 private $cpf; 
 private $email;
  
-
  private $senha;
  
  public function __construct() {

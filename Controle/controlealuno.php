@@ -10,9 +10,9 @@ class controlealuno{
             $conexao = $conexao->conexao();
             $stmt = $conexao->prepare("SELECT * FROM aluno;");
             $stmt->execute();
-            $professor = $stmt->fetchAll();
+            $aluno = $stmt->fetchAll();
             $stmt = null;
-            return $professor;
+            return $aluno;
         }
 
         public function cadastraraluno(Aluno $aluno) {
@@ -47,6 +47,7 @@ class controlealuno{
         }
 
         public function logout(){
+            
             session_destroy();
         }
 
