@@ -9,11 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $descricao = $_POST['descricao'];
     $professorId = $_SESSION['user_id'];
 
-    // Cadastrar o questionário
     $questionarioId = $questionarioCtrl->cadastrarQuestionario($titulo, $descricao, $professorId);
 
     if ($questionarioId) {
-        // Processar cada questão
+
         foreach ($_POST['questoes'] as $questao) {
             $tituloQuestao = $questao['titulo'];
             $descricaoQuestao = $questao['descricao'];
@@ -21,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $questaoId = $questionarioCtrl->cadastrarQuestao($tituloQuestao, $descricaoQuestao, $tipoQuestao, $questionarioId);
 
-            // Cadastrar alternativas para questões objetivas
             if ($tipoQuestao == 1 && isset($questao['alternativas'])) {
                 foreach ($questao['alternativas'] as $index => $alternativa) {
                     $conteudo = $alternativa['conteudo'];
@@ -30,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            // Alternativas automáticas para Verdadeiro/Falso
             if ($tipoQuestao == 2) {
                 $questionarioCtrl->cadastrarAlternativa("Verdadeiro", true, $questaoId);
                 $questionarioCtrl->cadastrarAlternativa("Falso", false, $questaoId);

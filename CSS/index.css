@@ -5,23 +5,24 @@ body {
     padding: 0;
 }
 header {
-    background-color: rgba(0, 0, 0, 0.753);
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
     padding: 10px 20px;
     text-align: center;
 }
 nav {
-    background-color: #f4f4f4;
+    background-color: #e9ecef;
     padding: 10px;
     text-align: center;
 }
 nav a {
     text-decoration: none;
-    color: #333;
-    padding: 10px 20px;
+    color: #007bff;
+    padding: 10px 15px;
 }
 nav a:hover {
-    background-color: #ddd;
+    color: #0056b3;
+    text-decoration: underline;
 }
 .highlighted-products {
     display: flex;
@@ -37,7 +38,7 @@ nav a:hover {
     width: 200px;
 }
 footer {
-    background-color: rgba(0, 204, 255, 0.753);
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
     text-align: center;
     padding: 10px 0;

@@ -30,10 +30,10 @@ function adicionarQuestao() {
 
 function toggleAlternativas(select, questaoIndex) {
     const alternativasDiv = document.getElementById(`alternativas-${questaoIndex}`);
-    alternativasDiv.innerHTML = ""; // Limpa as alternativas ao trocar o tipo da questão
+    alternativasDiv.innerHTML = ""; 
 
     if (select.value == "1") {
-        // Para tipo "Objetiva", cria exatamente 5 alternativas
+
         alternativasDiv.style.display = "block";
         alternativasDiv.innerHTML = `
             <h5>Alternativas</h5>
@@ -50,7 +50,7 @@ function toggleAlternativas(select, questaoIndex) {
                 .join("")}
         `;
     } else if (select.value == "2") {
-        // Para tipo "Verdadeiro/Falso", exibe automaticamente as opções fixas
+
         alternativasDiv.style.display = "block";
         alternativasDiv.innerHTML = `
             <h5>Alternativas</h5>
@@ -64,6 +64,6 @@ function toggleAlternativas(select, questaoIndex) {
             </div>
         `;
     } else {
-        alternativasDiv.style.display = "none"; // Oculta para tipos não tratados
+        alternativasDiv.style.display = "none"; 
     }
 }
