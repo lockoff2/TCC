@@ -29,6 +29,13 @@ if (isset($_POST['nomeTurma']) && isset($_POST['descricao']) && isset($_POST['al
         $turmaCtrl->turmaaluno($id,$idturma);
     }
     
+    echo "
+            <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=../../TCC/Telas/Cadastrarturma.php'>
+            <script type=\"text/javascript\">
+                alert(\"Cadastro realizado com sucesso!\");
+            </script>
+            ";
+
 } 
 
 ?>

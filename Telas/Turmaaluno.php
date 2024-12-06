@@ -1,18 +1,18 @@
 <?php 
 session_start();
 include_once '../Controle/controleturma.php';
-include_once '../Controle/controleprofessor.php';
+include_once '../Controle/controlealuno.php';
 
 $turmaCtrl = new controleturmma();
-$professorCtrl = new controleprofessor();
+$alunoCtrl = new controlealuno();
 
-if (!$professorCtrl->isLoggedIn()) {
+if (!$alunoCtrl->isLoggedIn()) {
     header('Location: login.php');
     exit;
 }
 
-$professorId = $_SESSION['user_id']; 
-$turmas = $turmaCtrl->listarTurmasProfessor($professorId);
+$alunoId = $_SESSION['user_id']; 
+$turmas = $alunoCtrl->listarTurmasAluno($alunoId);
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +44,7 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
         <h2 class="text-center mb-4">Suas Turmas</h2>
         <?php if (empty($turmas)): ?>
             <div class="alert alert-warning text-center">
-                Nenhuma turma cadastrada no momento. <a href="cadastrarTurma.php" class="alert-link">Cadastre uma nova turma aqui!</a>
+                Não faz parte de nenhuma turma. 
             </div>
         <?php else: ?>
             <table class="table table-bordered table-hover">
@@ -68,24 +68,16 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
                                 </a>
                             </td>
                             
-                            <td>
-                                <button class="btn btn-danger btn-sm" onclick="confirmarExclusao(<?php echo $turma['id']; ?>)">
-                                    <i class="fas fa-trash-alt"></i> Remover
-                                </button>
-                            </td>
+                            
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         <?php endif; ?>
-        <div class="text-center mt-4">
-            <a href="cadastrarTurma.php" class="btn btn-primary btn-lg">
-                <i class="fas fa-plus-circle"></i> Cadastrar Nova Turma
-            </a>
-        </div>
     </div>
     <footer>
         <p>&copy; 2024 Sistema de Gestão de Turmas</p>
     </footer>
 </body>
 </html>
+ 

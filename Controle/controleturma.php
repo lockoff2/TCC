@@ -55,6 +55,19 @@ class controleturmma
         return $result;
     }
 
+    public function NomeTurma($idTurma)
+    {
+        $stmt = $this->conexao->prepare("SELECT nome FROM turma WHERE id = :idturma");
+        $stmt->bindParam(':idturma', $idTurma); 
+        $stmt->execute();
+        $turma = $stmt->fetch(PDO::FETCH_ASSOC); 
+        if ($turma) {
+            return $turma['nome']; 
+        } else {
+            return null; 
+        }
+    }
+
     public function getUltimaTurmaInserida()
     {
         return $this->conexao->lastInsertId();
