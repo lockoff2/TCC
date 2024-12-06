@@ -83,7 +83,7 @@ if (isset($_POST['entrar'])) {
         <h1 href="index.php">Desapego da ADS</h1>
     </header>
     <nav>
-        <a href="index.php">Início</a>
+        <a href="../index.php">Início</a>
         <a id="anuncios" href="#">Anúncios</a>
     </nav>
     <div class="container">
