@@ -16,6 +16,47 @@ class Questionario{
 			}
 		}
 	}
+	public function getId() {
+		return $this->id;
+	}
+	
+	public function getTitulo() {
+		return $this->titulo;
+	}
+	
+	public function getDescricao() {
+		return $this->descricao;
+	}
+	
+	public function setId($id) {
+		$this->id = $id;
+	}
+	
+	
+	public function setTitulo($titulo) {
+		$this->titulo = $titulo;
+	}
+	
+	public function setProfessorid($professorid) {
+		$this->professorid = $professorid;
+	}
+	
+	public function setDescricao($descricao) {
+		$this->descricao = $descricao;
+	}
+	
+	public function getProfessorid() {
+		return $this->professorid;
+	}
+	
+	public function getTurmaid() {
+		return $this->turmaid;
+	}
+	
+	public function setTurmaid($turmaid) {
+		$this->turmaid = $turmaid;
+	}
+	
     
 }
 ?>

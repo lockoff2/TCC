@@ -1,10 +1,8 @@
 <?php
-/*
 session_start();
-include_once 'Controle/controleusuario.php';
-include_once 'Controle/controleevento.php';
-include_once 'Model/Evento.php';
-$user = new controleusuario();
+include_once '../Controle/controleprofessor.php';
+$user = new controleprofessor();
+
 if (!$user->isLoggedIn()) {
     header('Location: login.php');
     exit;
@@ -12,24 +10,6 @@ if (!$user->isLoggedIn()) {
 
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-
-    $evento = new Evento();
-    $evento->setNomeevento($_POST['nomeEvento']);
-    $evento->setDescricao($_POST['descricao']);
-    $evento->setEstilo($_POST['estilo']);
-    $evento->setLocal($_POST['local']);
-    $evento->setTipo($_POST['tipo']);
-
-    $eventodao = new controleevento();
-    $eventoid = $eventodao->cadastrarEvento($evento);
-
-    // Redirecionar para a página setor.php com o ID do evento via GET
-    header("Location: cadastrosetor.php?eventoid=$eventoid");
-    exit;
-}
-*/
 ?>
 
 <!DOCTYPE html>
@@ -51,21 +31,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Loja Virtual de Ingressos</h1>
     </header>
     <nav class="text-center">
-        <a href="index.php">Início</a>
+        <a href="Professor.php">Início</a>
 
         <?php
-        /*if ($user->isLoggedIn()) {
+        if ($user->isLoggedIn()) {
             echo '<a href="eventos.php">Seus Eventos</a>';
             echo '<a href="Controle/sair.php">Sair</a>';
-        } else {
-            echo '<a href="login.php">Login/Cadastre-se</a>';
-        }*/
+        } 
         ?>
     </nav>
     <div class="container">
         <div class="form-container">
             <h2 class="text-center">Cadastrar uma Turma</h2>
-            <form action="#" method="post" enctype="multipart/form-data">
+            <form action="../Controle/cadastroturma.php" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="nomeTurma" class="form-label">Nome da Turma:</label>
                     <input type="text" id="nomeTurma" name="nomeTurma" class="form-control" required>
@@ -85,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         foreach ($alunos as $aluno) {
                             echo "<option value='{$aluno['id']}'>{$aluno['nome']}</option>";
                         }
-                        ?>
+                        ?>      
                     </select>
                 </div>
                 <div class="text-center">

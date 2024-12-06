@@ -1,9 +1,11 @@
 <?php
-class Turma{
+class Questionario{
     private $id;
-    private $nome;
+    private $titulo;
     private $descricao;
+    private $tipo;
     private $professorid;
+
 
     public function __construct() {
 		if (func_num_args() != 0) {
@@ -15,14 +17,13 @@ class Turma{
 			}
 		}
 	}
-    
-	public function getId() {
+
+    public function getId() {
 		return $this->id;
 	}
 	
-	
-	public function getNome() {
-		return $this->nome;
+	public function getTitulo() {
+		return $this->titulo;
 	}
 	
 	public function getDescricao() {
@@ -34,23 +35,30 @@ class Turma{
 	}
 	
 	
-	public function setNome($nome) {
-		$this->nome = $nome;
-	}
-	
-	public function setDescricao($descricao) {
-		$this->descricao = $descricao;
+	public function setTitulo($titulo) {
+		$this->titulo = $titulo;
 	}
 	
 	public function setProfessorid($professorid) {
 		$this->professorid = $professorid;
 	}
 	
+	public function setDescricao($descricao) {
+		$this->descricao = $descricao;
+	}
+	
 	public function getProfessorid() {
 		return $this->professorid;
 	}
 	
+	public function getTipo() {
+		return $this->tipo;
 	}
-
-
+	
+	public function setTipo($tipo) {
+		$this->tipo = $tipo;
+	}
+	
+    
+}
 ?>

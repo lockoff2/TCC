@@ -37,7 +37,7 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
         <h1>Gerenciar Turmas</h1>
     </header>
     <nav>
-        <a href="professor.php" class="btn btn-link">Início</a>
+        <a href="index.php" class="btn btn-link">Início</a>
         <a href="../Controle/sair.php" class="btn btn-link">Sair</a>
     </nav>
     <div class="container mt-4">
@@ -53,7 +53,7 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
                         <th>Nome da Turma</th>
                         <th>Descrição</th>
                         <th>Gerenciar Alunos</th>
-
+                        <th>Alterar</th>
                         <th>Remover</th>
                     </tr>
                 </thead>
@@ -67,7 +67,11 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
                                     <i class="fas fa-users"></i> Gerenciar
                                 </a>
                             </td>
-                            
+                            <td>
+                                <a href="alterarTurma.php?idTurma=<?php echo $turma['id']; ?>" class="btn btn-info btn-sm">
+                                    <i class="fas fa-edit"></i> Alterar
+                                </a>
+                            </td>
                             <td>
                                 <button class="btn btn-danger btn-sm" onclick="confirmarExclusao(<?php echo $turma['id']; ?>)">
                                     <i class="fas fa-trash-alt"></i> Remover
