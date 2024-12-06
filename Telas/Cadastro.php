@@ -18,8 +18,7 @@
         <h1>Nome Ver</h1>
     </header>
     <nav>
-        <a href="index.php">Início</a>
-        <a href="#">Sobre</a>
+        <a href="../index.php">Início</a>
     </nav>
     <div class="container">
         <div class="form-container">

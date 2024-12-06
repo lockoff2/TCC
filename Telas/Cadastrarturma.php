@@ -28,14 +28,14 @@ if (!$user->isLoggedIn()) {
 
 <body>
     <header class="text-center">
-        <h1>Loja Virtual de Ingressos</h1>
+        <h1></h1>
     </header>
     <nav class="text-center">
         <a href="Professor.php">Início</a>
 
         <?php
         if ($user->isLoggedIn()) {
-            echo '<a href="eventos.php">Seus Eventos</a>';
+            echo '<a href="Turma.php">Suas Turmas</a>';
             echo '<a href="Controle/sair.php">Sair</a>';
         } 
         ?>

@@ -47,11 +47,10 @@ $result = $professor->isLoggedIn();
         <h1>Desapego da ADS</h1>
     </header>
     <nav>
-        <a href="#">Início</a>
         <?php
         if ($result == true) {
             echo '<a href="turma.php">Suas Turmas</a>';
-            echo '<a href="turma.php">Suas Avaliações</a>';
+            echo '<a href="Questionarios.php">Suas Avaliações</a>';
             echo '<a href="../Controle/sair.php">Sair</a>';
             }else{
                 header('Location: ../Telas/login.php');

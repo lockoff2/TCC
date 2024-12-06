@@ -37,7 +37,7 @@ $turmas = $alunoCtrl->listarTurmasAluno($alunoId);
         <h1>Gerenciar Turmas</h1>
     </header>
     <nav>
-        <a href="professor.php" class="btn btn-link">Início</a>
+        <a href="Aluno.php" class="btn btn-link">Início</a>
         <a href="../Controle/sair.php" class="btn btn-link">Sair</a>
     </nav>
     <div class="container mt-4">

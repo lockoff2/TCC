@@ -93,7 +93,7 @@
             <p class="mb-4">
                 Transforme a forma como avalia suas turmas. Experimente o CodeQuiz e veja como é simples criar e aplicar questionários em programação.
             </p>
-            <a href="#" class="btn btn-primary btn-lg">Criar Meu Primeiro Questionário</a>
+            <a href="Telas/Login.php" class="btn btn-primary btn-lg">Criar Meu Primeiro Questionário</a>
         </div>
     </section>
 

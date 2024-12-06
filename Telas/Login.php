@@ -67,15 +67,6 @@ if (isset($_POST['entrar'])) {
     <title>Login e Cadastro</title>
     <link rel="stylesheet" type="text/css" href="../CSS/login.css">
     <script type="text/javascript" src="../JS/login.js"></script>
-    <script>
-        function navAnuncios() {
-            var anuncio = document.getElementById("anuncios");
-            if (anuncio.onclick) {
-                alert("Você precisa logar no sistema!");
-            }
-
-        }
-    </script>
 </head>
 
 <body>
@@ -84,7 +75,6 @@ if (isset($_POST['entrar'])) {
     </header>
     <nav>
         <a href="../index.php">Início</a>
-        <a id="anuncios" href="#">Anúncios</a>
     </nav>
     <div class="container">
         <div class="form-container">
