@@ -41,8 +41,8 @@ class controleturmma
         $stmt = $this->conexao->prepare("SELECT * FROM turma WHERE professorid = :idprofessor");
         $stmt->bindParam(':idprofessor', $idprofessor, PDO::PARAM_INT);
         $stmt->execute();
-        $anuncios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $anuncios;
+        $turmas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $turmas;
     }
 
     public function turmaaluno($idaluno, $turmaid)

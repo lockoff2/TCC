@@ -63,11 +63,6 @@ $questionarios = $questionarioCtrl->listarQuestionariosProfessor($professorId);
                             <td><?php echo htmlspecialchars($questionario['titulo']); ?></td>
                             <td><?php echo htmlspecialchars($questionario['descricao']); ?></td>
                             <td>
-                                <a href="gerenciarQuestoes.php?idQuestionario=<?php echo $questionario['id']; ?>" class="btn btn-success btn-sm">
-                                    <i class="fas fa-tasks"></i> Gerenciar
-                                </a>
-                            </td>
-                            <td>
                                 <a href="alterarQuestionario.php?idQuestionario=<?php echo $questionario['id']; ?>" class="btn btn-info btn-sm">
                                     <i class="fas fa-edit"></i> Alterar
                                 </a>

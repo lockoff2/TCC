@@ -1,5 +1,5 @@
 <?php
-class Questionario{
+class Opcoes{
     private $id;
     private $conteudo;
     private $resposta;

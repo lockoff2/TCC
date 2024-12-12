@@ -1,10 +1,12 @@
 <?php
-class Questionario{
+class Questao{
     private $id;
     private $titulo;
     private $descricao;
     private $tipo;
     private $professorid;
+
+	private $questionarioid;
 
 
     public function __construct() {
@@ -29,7 +31,14 @@ class Questionario{
 	public function getDescricao() {
 		return $this->descricao;
 	}
+
+	public function getQuestionarioid() {
+		return $this->questionarioid;
+	}
 	
+	public function setQuestionarioId($questionarioid) {
+		$this->questionarioid = $questionarioid;
+	}
 	public function setId($id) {
 		$this->id = $id;
 	}

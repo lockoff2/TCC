@@ -8,7 +8,7 @@ function adicionarQuestao() {
         <hr>
         <div class="mb-3">
             <label class="form-label">Título da Questão</label>
-            <input type="text" name="questoes[${questaoIndex}][titulo]" class="form-control" required>
+            <input type="text" name="questoes[${questaoIndex}][titulo1]" class="form-control" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Descrição</label>
@@ -30,40 +30,39 @@ function adicionarQuestao() {
 
 function toggleAlternativas(select, questaoIndex) {
     const alternativasDiv = document.getElementById(`alternativas-${questaoIndex}`);
-    alternativasDiv.innerHTML = ""; 
+    alternativasDiv.innerHTML = ""; // Limpa o conteúdo anterior
 
-    if (select.value == "1") {
-
+    if (select.value === "1") {
         alternativasDiv.style.display = "block";
         alternativasDiv.innerHTML = `
             <h5>Alternativas</h5>
-            ${[...Array(5).keys()]
-                .map(
-                    (i) => `
-                    <div class="mb-3">
-                        <label class="form-label">Alternativa ${i + 1}</label>
-                        <input type="text" name="questoes[${questaoIndex}][alternativas][${i}][conteudo]" class="form-control" required>
-                        <input type="radio" name="questoes[${questaoIndex}][correta]" value="${i}" required> Correta
+            ${Array.from({ length: 5 }, (_, i) => `
+                <div class="mb-3">
+                    <label class="form-label">Alternativa ${i + 1}</label>
+                    <input type="text" name="questoes[${questaoIndex}][alternativas][${i}][conteudo]" class="form-control" required>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="questoes[${questaoIndex}][correta]" value="${i}" required>
+                        <label class="form-check-label">Correta</label>
                     </div>
-                `
-                )
-                .join("")}
+                </div>
+            `).join('')}
         `;
-    } else if (select.value == "2") {
-
+    } else if (select.value === "2") {
         alternativasDiv.style.display = "block";
         alternativasDiv.innerHTML = `
             <h5>Alternativas</h5>
             <div class="mb-3">
-                <label class="form-label">Verdadeiro</label>
-                <input type="radio" name="questoes[${questaoIndex}][correta]" value="true" required> Correta
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Falso</label>
-                <input type="radio" name="questoes[${questaoIndex}][correta]" value="false" required> Correta
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="questoes[${questaoIndex}][correta]" value="true" required>
+                    <label class="form-check-label">Verdadeiro</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="questoes[${questaoIndex}][correta]" value="false" required>
+                    <label class="form-check-label">Falso</label>
+                </div>
             </div>
         `;
     } else {
-        alternativasDiv.style.display = "none"; 
+        alternativasDiv.style.display = "none";
     }
 }

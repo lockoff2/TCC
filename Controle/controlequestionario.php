@@ -35,13 +35,14 @@ class controlequestionario
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function cadastrarTurma(Turma $turma)
+    public function cadastrarQuestionario(Questionario $questionario)
     {
-        $sql = "INSERT INTO turma(nome, descricao, professorid ) VALUES(:enome, :edescricao, :eprofessorid);";
+        $sql = "INSERT INTO questionario(titulo, descricao, professorid, turmaid ) VALUES(:etitulo, :edescricao, :eprofessorid, :eturmaid);";
         $pstmt = $this->conexao->prepare($sql);
-        $pstmt->bindValue(':enome', $turma->getNome());
-        $pstmt->bindValue(':edescricao', $turma->getDescricao());
-        $pstmt->bindValue(':eprofessorid', $turma->getProfessorid());
+        $pstmt->bindValue(':etitulo', $questionario->getTitulo());
+        $pstmt->bindValue(':edescricao', $questionario->getDescricao());
+        $pstmt->bindValue(':eprofessorid', $questionario->getProfessorid());
+        $pstmt->bindValue(':eturmaid', $questionario->getTurmaid());
         $result = $pstmt->execute();
         return $result;
     }
