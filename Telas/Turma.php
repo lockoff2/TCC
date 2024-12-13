@@ -27,7 +27,7 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
     <script>
         function confirmarExclusao(idTurma) {
             if (confirm('Você realmente deseja apagar esta turma?')) {
-                window.location.href = '../Controle/apagarTurma.php?idTurma=' + idTurma;
+                window.location.href = '../Controle/apagarturma.php?idturma=' + idTurma;
             }
         }
     </script>

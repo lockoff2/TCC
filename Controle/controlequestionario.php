@@ -79,6 +79,15 @@ class controlequestionario
         }
     }
 
+    public function apagarQuestionario($idquestionario)
+    {
+        $conexao = new Conexao();
+        $conexao = $conexao->conexao();
+        $stmt = $conexao->prepare("DELETE FROM questionario WHERE id = :idquestionario");
+        $stmt->bindParam(':idquestionario', $idquestionario, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
     public function getUltimaTurmaInserida()
     {
         return $this->conexao->lastInsertId();

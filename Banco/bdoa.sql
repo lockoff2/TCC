@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2024 at 03:25 PM
+-- Generation Time: Dec 13, 2024 at 01:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,9 @@ CREATE TABLE `aluno` (
 --
 
 INSERT INTO `aluno` (`id`, `nome`, `email`, `cpf`, `senha`) VALUES
-(1, 'JORGE GABRIEL PEREIRA STURZA', 'jorgegabrielsturza@gmail.com', '978', '123');
+(1, 'JORGE GABRIEL PEREIRA STURZA', 'jorgegabrielsturza@gmail.com', '978', '123'),
+(2, 'victoria', 'victoria@gmail.com', '1111', '123'),
+(3, 'Lucas Leal', 'lucas@gmail.com', '55599922269', '123321');
 
 -- --------------------------------------------------------
 
@@ -54,6 +56,17 @@ CREATE TABLE `opcoes` (
   `resposta` tinyint(1) NOT NULL,
   `questaoid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `opcoes`
+--
+
+INSERT INTO `opcoes` (`id`, `conteudo`, `resposta`, `questaoid`) VALUES
+(1, '123', 0, 1),
+(2, '123', 0, 1),
+(3, '123', 0, 1),
+(4, '123', 0, 1),
+(5, '123', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -69,17 +82,14 @@ CREATE TABLE `professor` (
   `senha` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `questaoquestionario`
+-- Dumping data for table `professor`
 --
 
-CREATE TABLE `questaoquestionario` (
-  `id` int(11) NOT NULL,
-  `questaoid` int(11) NOT NULL,
-  `questionarioid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `professor` (`id`, `nome`, `cpf`, `email`, `senha`) VALUES
+(1, 'Daniel', '123', 'Daniel@gmail.com', '123'),
+(2, 'gustavo', '12345', 'gustavo@gmail.com', '123'),
+(3, 'teste', '02970588005', 'teste@gmail.com', '123');
 
 -- --------------------------------------------------------
 
@@ -95,6 +105,40 @@ CREATE TABLE `questionario` (
   `turmaid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `questionario`
+--
+
+INSERT INTO `questionario` (`id`, `titulo`, `descricao`, `professorid`, `turmaid`) VALUES
+(5, 'patas', '123', 1, 5),
+(7, 'patas132', 'asd123', 1, 1),
+(10, '123', '123', 1, 5),
+(11, '123412412', '12331241234231', 1, 3);
+
+--
+-- Triggers `questionario`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_questionario_cascade` BEFORE DELETE ON `questionario` FOR EACH ROW BEGIN
+  
+    DELETE FROM respostaalunos 
+    WHERE questaoid IN (
+        SELECT id FROM questoes WHERE questionarioid = OLD.id
+    );
+
+
+    DELETE FROM opcoes 
+    WHERE questaoid IN (
+        SELECT id FROM questoes WHERE questionarioid = OLD.id
+    );
+
+
+    DELETE FROM questoes 
+    WHERE questionarioid = OLD.id;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -106,8 +150,16 @@ CREATE TABLE `questoes` (
   `titulo` varchar(40) NOT NULL,
   `descricao` text DEFAULT NULL,
   `tipo` int(11) NOT NULL,
-  `professorid` int(11) NOT NULL
+  `professorid` int(11) NOT NULL,
+  `questionarioid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `questoes`
+--
+
+INSERT INTO `questoes` (`id`, `titulo`, `descricao`, `tipo`, `professorid`, `questionarioid`) VALUES
+(1, '123', '123', 1, 1, 11);
 
 -- --------------------------------------------------------
 
@@ -119,7 +171,8 @@ CREATE TABLE `respostaalunos` (
   `id` int(11) NOT NULL,
   `alunoid` int(11) NOT NULL,
   `questaoid` int(11) NOT NULL,
-  `resposta` text NOT NULL
+  `resposta` text NOT NULL,
+  `questionarioid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -132,9 +185,54 @@ CREATE TABLE `turma` (
   `id` int(11) NOT NULL,
   `nome` varchar(40) NOT NULL,
   `descricao` varchar(40) DEFAULT NULL,
-  `professorid` int(11) NOT NULL,
-  `alunoid` int(11) DEFAULT NULL
+  `professorid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `turma`
+--
+
+INSERT INTO `turma` (`id`, `nome`, `descricao`, `professorid`) VALUES
+(1, 'teste', NULL, 1),
+(3, 'teste3', 'teste3', 1),
+(5, 'ads12', '1234124', 1);
+
+--
+-- Triggers `turma`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_turma_cascade` BEFORE DELETE ON `turma` FOR EACH ROW BEGIN
+
+    DELETE FROM turmaaluno
+    WHERE turmaid = OLD.id;
+
+    DELETE FROM questionario
+    WHERE turmaid = OLD.id;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `turmaaluno`
+--
+
+CREATE TABLE `turmaaluno` (
+  `id` int(11) NOT NULL,
+  `alunoid` int(11) NOT NULL,
+  `turmaid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `turmaaluno`
+--
+
+INSERT INTO `turmaaluno` (`id`, `alunoid`, `turmaid`) VALUES
+(3, 1, 3),
+(4, 2, 3),
+(7, 1, 5),
+(8, 2, 5);
 
 --
 -- Indexes for dumped tables
@@ -164,14 +262,6 @@ ALTER TABLE `professor`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `questaoquestionario`
---
-ALTER TABLE `questaoquestionario`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `questaoid` (`questaoid`),
-  ADD KEY `questionarioid` (`questionarioid`);
-
---
 -- Indexes for table `questionario`
 --
 ALTER TABLE `questionario`
@@ -184,7 +274,8 @@ ALTER TABLE `questionario`
 --
 ALTER TABLE `questoes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `professorid` (`professorid`);
+  ADD KEY `professorid` (`professorid`),
+  ADD KEY `questionariofkq` (`questionarioid`);
 
 --
 -- Indexes for table `respostaalunos`
@@ -192,15 +283,23 @@ ALTER TABLE `questoes`
 ALTER TABLE `respostaalunos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `alunoid` (`alunoid`),
-  ADD KEY `questaoid` (`questaoid`);
+  ADD KEY `questaoid` (`questaoid`),
+  ADD KEY `respostaalunos_ibfk_3` (`questionarioid`);
 
 --
 -- Indexes for table `turma`
 --
 ALTER TABLE `turma`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `professorid` (`professorid`),
-  ADD KEY `alunoid` (`alunoid`);
+  ADD KEY `professorid` (`professorid`);
+
+--
+-- Indexes for table `turmaaluno`
+--
+ALTER TABLE `turmaaluno`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `aluno_fkT` (`alunoid`),
+  ADD KEY `turma_fkA` (`turmaid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -210,37 +309,31 @@ ALTER TABLE `turma`
 -- AUTO_INCREMENT for table `aluno`
 --
 ALTER TABLE `aluno`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `opcoes`
 --
 ALTER TABLE `opcoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `professor`
 --
 ALTER TABLE `professor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `questaoquestionario`
---
-ALTER TABLE `questaoquestionario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `questionario`
 --
 ALTER TABLE `questionario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `questoes`
 --
 ALTER TABLE `questoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `respostaalunos`
@@ -252,7 +345,13 @@ ALTER TABLE `respostaalunos`
 -- AUTO_INCREMENT for table `turma`
 --
 ALTER TABLE `turma`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `turmaaluno`
+--
+ALTER TABLE `turmaaluno`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -265,13 +364,6 @@ ALTER TABLE `opcoes`
   ADD CONSTRAINT `opcoes_ibfk_1` FOREIGN KEY (`questaoid`) REFERENCES `questoes` (`id`);
 
 --
--- Constraints for table `questaoquestionario`
---
-ALTER TABLE `questaoquestionario`
-  ADD CONSTRAINT `questaoquestionario_ibfk_1` FOREIGN KEY (`questaoid`) REFERENCES `questoes` (`id`),
-  ADD CONSTRAINT `questaoquestionario_ibfk_2` FOREIGN KEY (`questionarioid`) REFERENCES `questionario` (`id`);
-
---
 -- Constraints for table `questionario`
 --
 ALTER TABLE `questionario`
@@ -282,6 +374,7 @@ ALTER TABLE `questionario`
 -- Constraints for table `questoes`
 --
 ALTER TABLE `questoes`
+  ADD CONSTRAINT `questionariofkq` FOREIGN KEY (`questionarioid`) REFERENCES `questionario` (`id`),
   ADD CONSTRAINT `questoes_ibfk_1` FOREIGN KEY (`professorid`) REFERENCES `professor` (`id`);
 
 --
@@ -289,14 +382,21 @@ ALTER TABLE `questoes`
 --
 ALTER TABLE `respostaalunos`
   ADD CONSTRAINT `respostaalunos_ibfk_1` FOREIGN KEY (`alunoid`) REFERENCES `aluno` (`id`),
-  ADD CONSTRAINT `respostaalunos_ibfk_2` FOREIGN KEY (`questaoid`) REFERENCES `questoes` (`id`);
+  ADD CONSTRAINT `respostaalunos_ibfk_2` FOREIGN KEY (`questaoid`) REFERENCES `questoes` (`id`),
+  ADD CONSTRAINT `respostaalunos_ibfk_3` FOREIGN KEY (`questionarioid`) REFERENCES `questionario` (`id`);
 
 --
 -- Constraints for table `turma`
 --
 ALTER TABLE `turma`
-  ADD CONSTRAINT `turma_ibfk_1` FOREIGN KEY (`professorid`) REFERENCES `professor` (`id`),
-  ADD CONSTRAINT `turma_ibfk_2` FOREIGN KEY (`alunoid`) REFERENCES `aluno` (`id`);
+  ADD CONSTRAINT `turma_ibfk_1` FOREIGN KEY (`professorid`) REFERENCES `professor` (`id`);
+
+--
+-- Constraints for table `turmaaluno`
+--
+ALTER TABLE `turmaaluno`
+  ADD CONSTRAINT `aluno_fkT` FOREIGN KEY (`alunoid`) REFERENCES `aluno` (`id`),
+  ADD CONSTRAINT `turma_fkA` FOREIGN KEY (`turmaid`) REFERENCES `turma` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

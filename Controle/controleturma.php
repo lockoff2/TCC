@@ -36,6 +36,21 @@ class controleturmma
         return $result;
     }
 
+    public function apagarTurma($idturma)
+    {
+        $stmt = $this->conexao->prepare("DELETE FROM turma WHERE id = :idturma");
+        $stmt->bindParam(':idturma', $idturma, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function removerTurmaaluno($idturma, $idaluno)
+    {
+        $stmt = $this->conexao->prepare("DELETE FROM turmaaluno WHERE alunoid = :idaluno and turmaid = :idturma");
+        $stmt->bindParam(':idaluno', $idaluno, PDO::PARAM_INT);
+        $stmt->bindParam(':idturma', $idturma, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
     public function listarTurmasProfessor($idprofessor)
     {
         $stmt = $this->conexao->prepare("SELECT * FROM turma WHERE professorid = :idprofessor");

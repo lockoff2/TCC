@@ -27,7 +27,7 @@ $questionarios = $questionarioCtrl->listarQuestionariosProfessor($professorId);
     <script>
         function confirmarExclusao(idQuestionario) {
             if (confirm('Você realmente deseja apagar este questionário?')) {
-                window.location.href = '../Controle/apagarQuestionario.php?idQuestionario=' + idQuestionario;
+                window.location.href = '../Controle/apagarquestionario.php?idquestionario=' + idQuestionario;
             }
         }
     </script>
