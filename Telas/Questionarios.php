@@ -53,7 +53,6 @@ $questionarios = $questionarioCtrl->listarQuestionariosProfessor($professorId);
                         <th>Título do Questionário</th>
                         <th>Descrição</th>
                         <th>Gerenciar Questões</th>
-                        <th>Alterar</th>
                         <th>Remover</th>
                     </tr>
                 </thead>
