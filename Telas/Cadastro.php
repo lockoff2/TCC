@@ -15,7 +15,7 @@
 
 <body>
     <header>
-        <h1>Nome Ver</h1>
+        <h1>CodeQuiz</h1>
     </header>
     <nav>
         <a href="../index.php">Início</a>
@@ -48,7 +48,7 @@
         </div>
     </div>
     <footer>
-        <p>&copy; 2024 Site de Venda de Usados</p>
+        <p>&copy; 2024 CodeQuiz</p>
     </footer>
 </body>
 

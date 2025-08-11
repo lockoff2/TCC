@@ -85,7 +85,7 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
         </div>
     </div>
     <footer>
-        <p>&copy; 2024 Sistema de Gestão de Turmas</p>
+        <p>&copy; 2024 CodeQuiz</p>
     </footer>
 </body>
 </html>

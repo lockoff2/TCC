@@ -18,7 +18,7 @@ $result = $professor->isLoggedIn();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamer Shops</title>
+    <title>CodeQuiz</title>
     <link rel="stylesheet" type="text/css" href="../CSS/index.css">
     <script src="JS/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -32,19 +32,13 @@ $result = $professor->isLoggedIn();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <script>function navAnuncios() {
-            var anuncio = document.getElementById("anuncios");
-            if (anuncio.onclick) {
-                alert("Você precisa logar no sistema!");
-            }
-
-        }</script>
+    
     <link href="CSS/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <h1>Desapego da ADS</h1>
+        <h1>CodeQuiz</h1>
     </header>
     <nav>
         <?php
@@ -63,7 +57,7 @@ $result = $professor->isLoggedIn();
         </div>
     </div>
     <footer>
-        <p>&copy; 2024 Site de Venda de Usados</p>
+        <p>&copy; 2024 CodeQuiz</p>
     </footer>
 </body>
 

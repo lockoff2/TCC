@@ -71,7 +71,7 @@ if (isset($_POST['entrar'])) {
 
 <body>
     <header>
-        <h1 href="index.php">Desapego da ADS</h1>
+        <h1 href="index.php">CodeQuiz</h1>
     </header>
     <nav>
         <a href="../index.php">Início</a>
@@ -92,7 +92,7 @@ if (isset($_POST['entrar'])) {
         </div>
     </div>
     <footer>
-        <p>&copy; 2024 Site de Venda de Usados</p>
+        <p>&copy; 2024 CodeQuiz</p>
     </footer>
 
 </body>

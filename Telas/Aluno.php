@@ -51,7 +51,7 @@ $result = $aluno->isLoggedIn();
         <?php
         if ($result == true) {
             echo '<a href="Turmaaluno.php">Turmas que participa </a>';
-            echo '<a href="turma.php">Suas Avaliações</a>';
+            echo '<a href="Questionariosaluno.php">Suas Avaliações</a>';
             echo '<a href="../Controle/sair.php">Sair</a>';
             }else{
                 header('Location: ../Telas/login.php');
