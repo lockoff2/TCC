@@ -111,5 +111,15 @@ class controlealuno
 
         return $turmas;
 }
+
+public function buscarPorId($idAluno) {
+    $conexao = new Conexao();
+    $conexao = $conexao->conexao();
+    $stmt = $conexao->prepare("SELECT * FROM aluno WHERE id = :id");
+    $stmt->bindValue(':id', $idAluno);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 }
 ?>

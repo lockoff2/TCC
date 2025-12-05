@@ -8,12 +8,15 @@ function adicionarQuestao() {
         <hr>
         <div class="mb-3">
             <label class="form-label">Título da Questão</label>
-            <input type="text" name="questoes[${questaoIndex}][titulo1]" class="form-control" required>
+            <!-- CORRIGIDO: antes estava titulo1 no POST -->
+            <input type="text" name="questoes[${questaoIndex}][titulo]" class="form-control" required>
         </div>
+
         <div class="mb-3">
             <label class="form-label">Descrição</label>
             <textarea name="questoes[${questaoIndex}][descricao]" class="form-control" rows="3" required></textarea>
         </div>
+
         <div class="mb-3">
             <label class="form-label">Tipo</label>
             <select name="questoes[${questaoIndex}][tipo]" class="form-select" required onchange="toggleAlternativas(this, ${questaoIndex})">
@@ -22,15 +25,17 @@ function adicionarQuestao() {
                 <option value="2">Verdadeiro/Falso</option>
             </select>
         </div>
+
         <div id="alternativas-${questaoIndex}" style="display: none;"></div>
     `;
+
     container.appendChild(novaQuestao);
     questaoIndex++;
 }
 
 function toggleAlternativas(select, questaoIndex) {
     const alternativasDiv = document.getElementById(`alternativas-${questaoIndex}`);
-    alternativasDiv.innerHTML = ""; // Limpa o conteúdo anterior
+    alternativasDiv.innerHTML = ""; 
 
     if (select.value === "1") {
         alternativasDiv.style.display = "block";
@@ -40,29 +45,37 @@ function toggleAlternativas(select, questaoIndex) {
                 <div class="mb-3">
                     <label class="form-label">Alternativa ${i + 1}</label>
                     <input type="text" name="questoes[${questaoIndex}][alternativas][${i}][conteudo]" class="form-control" required>
+
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="questoes[${questaoIndex}][correta]" value="${i}" required>
+                        <input class="form-check-input" type="radio" 
+                            name="questoes[${questaoIndex}][correta]" 
+                            value="${i}" required>
                         <label class="form-check-label">Correta</label>
                     </div>
                 </div>
             `).join('')}
         `;
-    } else if (select.value === "2") {
+    } 
+    else if (select.value === "2") {
         alternativasDiv.style.display = "block";
         alternativasDiv.innerHTML = `
             <h5>Alternativas</h5>
             <div class="mb-3">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="questoes[${questaoIndex}][correta]" value="true" required>
+                    <input class="form-check-input" type="radio" 
+                        name="questoes[${questaoIndex}][correta]" value="true" required>
                     <label class="form-check-label">Verdadeiro</label>
                 </div>
+
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="questoes[${questaoIndex}][correta]" value="false" required>
+                    <input class="form-check-input" type="radio" 
+                        name="questoes[${questaoIndex}][correta]" value="false" required>
                     <label class="form-check-label">Falso</label>
                 </div>
             </div>
         `;
-    } else {
+    } 
+    else {
         alternativasDiv.style.display = "none";
     }
 }

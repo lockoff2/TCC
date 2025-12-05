@@ -24,13 +24,7 @@ $turmas = $alunoCtrl->listarTurmasAluno($alunoId);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../CSS/cadastro.css">
-    <script>
-        function confirmarExclusao(idTurma) {
-            if (confirm('Você realmente deseja apagar esta turma?')) {
-                window.location.href = '../Controle/apagarTurma.php?idTurma=' + idTurma;
-            }
-        }
-    </script>
+   
 </head>
 <body>
     <header>
@@ -52,9 +46,7 @@ $turmas = $alunoCtrl->listarTurmasAluno($alunoId);
                     <tr>
                         <th>Nome da Turma</th>
                         <th>Descrição</th>
-                        <th>Gerenciar Alunos</th>
-
-                        <th>Remover</th>
+                        <th>Participantes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,8 +55,8 @@ $turmas = $alunoCtrl->listarTurmasAluno($alunoId);
                             <td><?php echo htmlspecialchars($turma['nome']); ?></td>
                             <td><?php echo htmlspecialchars($turma['descricao']); ?></td>
                             <td>
-                                <a href="Gerenciaralunos.php?idTurma=<?php echo $turma['id']; ?>" class="btn btn-success btn-sm">
-                                    <i class="fas fa-users"></i> Gerenciar
+                                <a href="Participantes.php?idTurma=<?php echo $turma['id']; ?>" class="btn btn-success btn-sm">
+                                    <i class="fas fa-users"></i> Participantes
                                 </a>
                             </td>
                             

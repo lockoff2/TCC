@@ -1,67 +1,101 @@
 <?php
 session_start();
+
 include_once '../Controle/controlequestionario.php';
 include_once '../Controle/controlequestao.php';
-include_once '../Controle/controleTurma.php';
+include_once '../Controle/controleturma.php';
 include_once '../Model/Questionario.php';
 include_once '../Model/Questao.php';
 include_once '../Model/Opcoes.php';
 
-$questaoCrtl = new controlequestao();
+$questaoCtrl = new controlequestao();
 $questionarioCtrl = new controlequestionario();
-$turmaCtrl = new controleTurmma();
-$questionario = new Questionario();
+$turmaCtrl = new controleturmma(); // CORRIGIDO
 
 $professorId = $_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-   
 
-    $titulo = $_POST['titulo'] ?? null;
-    $descricao = $_POST['descricao'] ?? null;
-    $turmaId = $_POST['turmas'] ?? null;
+    // ===============================================
+    // CADASTRA QUESTIONÁRIO
+    // ===============================================
+    $questionario = new Questionario();
+    $questionario->setTitulo($_POST['titulo']);
+    $questionario->setDescricao($_POST['descricao']);
+    $questionario->setTurmaid($_POST['turmas']);
+    $questionario->setProfessorId($professorId);
 
-    if ($titulo && $descricao && $turmaId) {
-        $questionario->setTitulo($titulo);
-        $questionario->setDescricao($descricao);
-        $questionario->setTurmaid($turmaId);
-        $questionario->setProfessorId($professorId);
+    $questionarioCtrl->cadastrarQuestionario($questionario);
+    $questionarioId = $questionarioCtrl->getUltimoQuestionarioInserido();
 
-        $questionarioCtrl->cadastrarQuestionario($questionario);
-        $questionarioId = $questionarioCtrl->getUltimaTurmaInserida();
 
-        if ($questionarioId && isset($_POST['questoes'])) {
-            foreach ($_POST['questoes'] as $questaoData) {
-                
+    // ===============================================
+    // CADASTRA QUESTÕES
+    // ===============================================
+    if (isset($_POST['questoes'])) {
+        foreach ($_POST['questoes'] as $questaoData) {
 
-                $questao = new Questao();
-                $questao->setTitulo($questaoData['titulo']);
-                $questao->setDescricao($questaoData['descricao']);
-                $questao->setTipo($questaoData['tipo']);
-                $questao->setProfessorid($professorId);
-                $questao->setQuestionarioid($questionarioId);
+            if (empty($questaoData['titulo'])) continue;
 
-                $questaoId = $questaoCrtl->cadastrarQuestao($questao);
+            $questao = new Questao();
+            $questao->setTitulo($questaoData['titulo']);
+            $questao->setDescricao($questaoData['descricao']);
+            $questao->setTipo($questaoData['tipo']);
+            $questao->setProfessorid($professorId);
+            $questao->setQuestionarioid($questionarioId);
 
-                if ($questaoData['tipo'] == "1" && isset($questaoData['alternativas'])) {
-                    foreach ($questaoData['alternativas'] as $index => $alternativa) {
-                        $opcao = new Opcoes();
-                        $opcao->setConteudo($alternativa['conteudo']);
-                        $opcao->setResposta($questaoData['correta'] == $index);
-                        $opcao->setQuestaoid($questaoId);
-                        $questaoCrtl->cadastrarOpcoes($opcao);
-                    }
+            $questaoId = $questaoCtrl->cadastrarQuestao($questao);
+
+
+            // ===============================================
+            // QUESTÃO OBJETIVA
+            // ===============================================
+            if ($questaoData['tipo'] == "1" && isset($questaoData['alternativas'])) {
+
+                foreach ($questaoData['alternativas'] as $i => $alt) {
+
+                    if (empty($alt['conteudo'])) continue;
+
+                    $opcao = new Opcoes();
+                    $opcao->setConteudo($alt['conteudo']);
+
+                    // Marca como correta
+                    $opcao->setResposta($questaoData['correta'] == $i);
+
+                    $opcao->setQuestaoid($questaoId);
+
+                    $questaoCtrl->cadastrarOpcoes($opcao);
                 }
             }
-        }
 
-        header("Location: Questionarios.php");
-        exit();
-    } else {
-        echo "<script>alert('Erro ao cadastrar questionário: Preencha todos os campos!');</script>";
+
+            // ===============================================
+            // QUESTÃO VERDADEIRO / FALSO
+            // ===============================================
+            if ($questaoData['tipo'] == "2") {
+
+                // Alternativa: Verdadeiro
+                $opcaoV = new Opcoes();
+                $opcaoV->setConteudo("Verdadeiro");
+                $opcaoV->setResposta($questaoData['correta'] === "true");
+                $opcaoV->setQuestaoid($questaoId);
+                $questaoCtrl->cadastrarOpcoes($opcaoV);
+
+                // Alternativa: Falso
+                $opcaoF = new Opcoes();
+                $opcaoF->setConteudo("Falso");
+                $opcaoF->setResposta($questaoData['correta'] === "false");
+                $opcaoF->setQuestaoid($questaoId);
+                $questaoCtrl->cadastrarOpcoes($opcaoF);
+            }
+        }
     }
+
+    header("Location: Questionarios.php");
+    exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt">
