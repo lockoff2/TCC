@@ -1,55 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="../CSS/login.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+
+    <title>Cadastro - CodeQuiz</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f4f6f9;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+        }
+
+        .card-header {
+            background: #0d6efd;
+            color: white;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            border-radius: 15px 15px 0 0 !important;
+        }
+
+        .btn-primary {
+            width: 100%;
+            height: 45px;
+        }
+    </style>
+
 </head>
 
 <body>
-    <header>
-        <h1>CodeQuiz</h1>
-    </header>
-    <nav>
-        <a href="../index.php">Início</a>
-    </nav>
-    <div class="container">
-        <div class="form-container">
-            <h2>Cadastro</h2>
-            <form action="../Controle/usuarioexiste.php" method="post">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="tipoUsuario" id="aluno" value="Aluno">
-                    <label class="form-check-label" for="aluno">Aluno</label>
+
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-6">
+
+                <div class="card shadow">
+
+                    <div class="card-header">
+
+                        CodeQuiz
+
+                    </div>
+
+                    <div class="card-body p-4">
+
+                        <h3 class="text-center mb-4">
+                            Cadastro de Usuário
+                        </h3>
+
+                        <form action="../Controle/usuarioexiste.php" method="post">
+
+                            <label class="form-label">
+                                Tipo de Usuário
+                            </label>
+
+                            <div class="mb-3">
+
+                                <div class="form-check form-check-inline">
+
+                                    <input class="form-check-input" type="radio" name="tipoUsuario" value="Aluno">
+
+                                    <label class="form-check-label">
+                                        Aluno
+                                    </label>
+
+                                </div>
+
+                                <div class="form-check form-check-inline">
+
+                                    <input class="form-check-input" type="radio" name="tipoUsuario" value="Professor"
+                                        checked>
+
+                                    <label class="form-check-label">
+                                        Professor
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Nome
+                                </label>
+
+                                <input type="text" class="form-control" name="nome" required>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Email
+                                </label>
+
+                                <input type="email" class="form-control" name="email" required>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Senha
+                                </label>
+
+                                <input type="password" class="form-control" name="senha" required>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Curso
+                                </label>
+
+                                <input type="text" class="form-control" name="cidade">
+
+                            </div>
+
+                            <div class="mb-4">
+
+                                <label class="form-label">
+                                    CPF
+                                </label>
+
+                                <input type="text" class="form-control" name="cpf">
+
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+
+                                Cadastrar
+
+                            </button>
+
+                        </form>
+
+                        <hr>
+
+                        <div class="text-center">
+
+                            Já possui uma conta?
+
+                            <br>
+
+                            <a href="login.php">
+                                Fazer Login
+                            </a>
+
+                        </div>
+
+                    </div>
+
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="tipoUsuario" id="professor" value="Professor"
-                        checked>
-                    <label class="form-check-label" for="professor">Professor</label>
-                </div>
-                <label class="form-label">Nome:</label><br>
-                <input type="text" id="nome" name="nome" required><br>
-                <label class="form-label">Email:</label><br>
-                <input type="email" id="email" name="email" required><br>
-                <label class="form-label">Senha:</label><br>
-                <input type="password" id="senha" name="senha" required><br>
-                <label class="form-label">Endereço:</label><br>
-                <input type="text" id="cidade" name="cidade"><br>
-                <label class="form-label">CPF:</label><br>
-                <input type="text" id="cpf" name="cpf"><br>
-                <input type="submit" value="Cadastrar">
-            </form>
+
+            </div>
+
         </div>
+
     </div>
-    <footer>
-        <p>&copy; 2024 CodeQuiz</p>
-    </footer>
+
 </body>
 
 </html>

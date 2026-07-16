@@ -33,7 +33,7 @@ class controlequestao
 
         $stmt->execute();
 
-        return $this->conexao->lastInsertId(); 
+        return $this->conexao->lastInsertId();
     }
 
     public function cadastrarOpcoes(Opcoes $opcao)

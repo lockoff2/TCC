@@ -31,37 +31,38 @@ class controlequestionario
     }
 
     public function listarQuestionariosPorVariasTurmas(array $turmas)
-{
-    if (empty($turmas)) {
-        return [];
-    }
+    {
+        if (empty($turmas)) {
+            return [];
+        }
 
-    $placeholders = implode(',', array_fill(0, count($turmas), '?'));
+        $placeholders = implode(',', array_fill(0, count($turmas), '?'));
 
-    $sql = "SELECT * FROM questionario 
+        $sql = "SELECT * FROM questionario 
             WHERE turmaid IN ($placeholders)";
 
-    $stmt = $this->conexao->prepare($sql);
+        $stmt = $this->conexao->prepare($sql);
 
-    foreach ($turmas as $i => $idTurma) {
-        $stmt->bindValue($i + 1, $idTurma);
+        foreach ($turmas as $i => $idTurma) {
+            $stmt->bindValue($i + 1, $idTurma);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-public function listarQuestionariosPorTurma($idTurma) {
-    $stmt = $this->conexao->prepare("
+    public function listarQuestionariosPorTurma($idTurma)
+    {
+        $stmt = $this->conexao->prepare("
         SELECT * FROM questionario
         WHERE turmaid = :turma
     ");
-    $stmt->bindValue(':turma', $idTurma);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        $stmt->bindValue(':turma', $idTurma);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-    
+
     public function cadastrarQuestionario(Questionario $questionario)
     {
         $sql = "INSERT INTO questionario (titulo, descricao, professorid, turmaid)
@@ -79,7 +80,7 @@ public function listarQuestionariosPorTurma($idTurma) {
 
     public function apagarQuestionario($id)
     {
-       
+
 
         // 3 — apagar o questionário
         $sqlQuestionario = "DELETE FROM questionario WHERE id = :id";

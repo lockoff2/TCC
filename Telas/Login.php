@@ -37,9 +37,9 @@ if (isset($_POST['entrar'])) {
 							    alert(\"Senha ou email incorretos!\");
 						    </script>
 						    ";
-    } 
+        }
 
-    } elseif($stmtProfessor->rowCount() > 0){
+    } elseif ($stmtProfessor->rowCount() > 0) {
         if ($professor->login($email, $senha)) {
             header('Location:Professor.php');
         } else {
@@ -65,35 +65,81 @@ if (isset($_POST['entrar'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login e Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../CSS/login.css">
     <script type="text/javascript" src="../JS/login.js"></script>
 </head>
 
-<body>
-    <header>
-        <h1 href="index.php">CodeQuiz</h1>
-    </header>
-    <nav>
-        <a href="../index.php">Início</a>
-    </nav>
-    <div class="container">
-        <div class="form-container">
-            <div class="login-form">
-                <h2>Login</h2>
-                <form action="#" method="post">
-                    <label>Email:</label><br>
-                    <input type="email" id="email" name="email" required><br>
-                    <label>Senha:</label><br>
-                    <input type="password" id="senha" name="senha" required><br>
-                    <input type="submit" value="entrar" name="entrar" id="entrar">
+<body class="bg-light">
+
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+
+        <div class="card shadow-lg" style="width:420px; border-radius:15px;">
+
+            <div class="card-body p-5">
+
+                <h2 class="text-center text-primary mb-2">
+                    CodeQuiz
+                </h2>
+
+                <p class="text-center text-muted mb-4">
+                    Ambiente Interativo para Programação
+                </p>
+
+                <form method="post">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input type="email" class="form-control" name="email" placeholder="Digite seu email" required>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Senha
+                        </label>
+
+                        <input type="password" class="form-control" name="senha" placeholder="Digite sua senha"
+                            required>
+
+                    </div>
+
+                    <div class="d-grid">
+
+                        <button class="btn btn-primary btn-lg" name="entrar">
+
+                            Entrar
+
+                        </button>
+
+                    </div>
+
                 </form>
-                <p>Não tem uma conta? <a href="cadastro.php">Cadastre-se</a></p>
+
+                <hr>
+
+                <div class="text-center">
+
+                    Não possui uma conta?
+
+                    <br>
+
+                    <a href="cadastro.php">
+                        Cadastre-se
+                    </a>
+
+                </div>
+
             </div>
+
         </div>
+
     </div>
-    <footer>
-        <p>&copy; 2024 CodeQuiz</p>
-    </footer>
 
 </body>
 

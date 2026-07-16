@@ -11,7 +11,7 @@ if (!$user->isLoggedIn()) {
     exit;
 }
 
-if (isset($_GET['idTurma'])&& isset($_GET['idAluno'])) {
+if (isset($_GET['idTurma']) && isset($_GET['idAluno'])) {
     $idturma = $_GET['idTurma'];
     $idaluno = $_GET['idAluno'];
     if ($turma->removerTurmaaluno($idturma, $idaluno)) {

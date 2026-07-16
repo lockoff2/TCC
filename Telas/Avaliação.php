@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include_once '../Controle/controleturma.php';
 include_once '../Controle/controleprofessor.php';
@@ -11,12 +11,13 @@ if (!$professorCtrl->isLoggedIn()) {
     exit;
 }
 
-$professorId = $_SESSION['user_id']; 
+$professorId = $_SESSION['user_id'];
 $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
 ?>
 
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +33,7 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
         }
     </script>
 </head>
+
 <body>
     <header>
         <h1>Gerenciar Turmas</h1>
@@ -44,7 +46,8 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
         <h2 class="text-center mb-4">Suas Turmas</h2>
         <?php if (empty($turmas)): ?>
             <div class="alert alert-warning text-center">
-                Nenhuma turma cadastrada no momento. <a href="cadastrarTurma.php" class="alert-link">Cadastre uma nova turma aqui!</a>
+                Nenhuma turma cadastrada no momento. <a href="cadastrarTurma.php" class="alert-link">Cadastre uma nova turma
+                    aqui!</a>
             </div>
         <?php else: ?>
             <table class="table table-bordered table-hover">
@@ -63,11 +66,12 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
                             <td><?php echo htmlspecialchars($turma['nome']); ?></td>
                             <td><?php echo htmlspecialchars($turma['descricao']); ?></td>
                             <td>
-                                <a href="gerenciarAlunos.php?idTurma=<?php echo $turma['id']; ?>" class="btn btn-success btn-sm">
+                                <a href="gerenciarAlunos.php?idTurma=<?php echo $turma['id']; ?>"
+                                    class="btn btn-success btn-sm">
                                     <i class="fas fa-users"></i> Gerenciar
                                 </a>
                             </td>
-                            
+
                             <td>
                                 <button class="btn btn-danger btn-sm" onclick="confirmarExclusao(<?php echo $turma['id']; ?>)">
                                     <i class="fas fa-trash-alt"></i> Remover
@@ -88,4 +92,5 @@ $turmas = $turmaCtrl->listarTurmasProfessor($professorId);
         <p>&copy; 2024 Sistema de Gestão de Turmas</p>
     </footer>
 </body>
+
 </html>

@@ -87,39 +87,40 @@ class controlealuno
             WHERE turmaaluno.turmaid = :turmaid"
         );
 
-        $stmt->bindValue(':turmaid', $idturma); 
-        $stmt->execute(); 
-        $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        $stmt->bindValue(':turmaid', $idturma);
+        $stmt->execute();
+        $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $alunos;
     }
 
     public function listarTurmasAluno($idAluno)
-{
-    $conexao = new Conexao();
+    {
+        $conexao = new Conexao();
         $conexao = $conexao->conexao();
         $stmt = $conexao->prepare(
-        "SELECT t.id, t.nome, t.descricao 
+            "SELECT t.id, t.nome, t.descricao 
                 FROM turma t
                 INNER JOIN turmaaluno ta ON t.id = ta.turmaid
                 WHERE ta.alunoid = :idAluno;"
         );
 
-        $stmt->bindValue(':idAluno', $idAluno); 
-        $stmt->execute(); 
-        $turmas = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        $stmt->bindValue(':idAluno', $idAluno);
+        $stmt->execute();
+        $turmas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $turmas;
-}
+    }
 
-public function buscarPorId($idAluno) {
-    $conexao = new Conexao();
-    $conexao = $conexao->conexao();
-    $stmt = $conexao->prepare("SELECT * FROM aluno WHERE id = :id");
-    $stmt->bindValue(':id', $idAluno);
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+    public function buscarPorId($idAluno)
+    {
+        $conexao = new Conexao();
+        $conexao = $conexao->conexao();
+        $stmt = $conexao->prepare("SELECT * FROM aluno WHERE id = :id");
+        $stmt->bindValue(':id', $idAluno);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
 }
 ?>

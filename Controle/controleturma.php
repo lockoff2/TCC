@@ -2,22 +2,26 @@
 
 include_once __DIR__ . '/../Banco/conexao.php';
 
-class controleturmma {
+class controleturmma
+{
 
     private $conexao;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->conexao = new Conexao();
         $this->conexao = $this->conexao->conexao();
     }
 
-    public function todasturmas() {
+    public function todasturmas()
+    {
         $stmt = $this->conexao->prepare("SELECT * FROM turma;");
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
-    public function cadastrarTurma(Turma $turma) {
+    public function cadastrarTurma(Turma $turma)
+    {
         $sql = "INSERT INTO turma(nome, descricao, professorid)
                 VALUES(:enome, :edescricao, :eprofessorid);";
 
@@ -29,19 +33,22 @@ class controleturmma {
         return $pstmt->execute();
     }
 
-    public function apagarTurma($idturma) {
+    public function apagarTurma($idturma)
+    {
         $stmt = $this->conexao->prepare("DELETE FROM turma WHERE id = :idturma");
         $stmt->bindValue(':idturma', $idturma, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
-    public function buscarTurmaPorId($idTurma) {
+    public function buscarTurmaPorId($idTurma)
+    {
         $stmt = $this->conexao->prepare("SELECT * FROM turma WHERE id = ?;");
         $stmt->execute([$idTurma]);
         return $stmt->fetch();
     }
 
-    public function removerTurmaaluno($idturma, $idaluno) {
+    public function removerTurmaaluno($idturma, $idaluno)
+    {
         $stmt = $this->conexao->prepare("
             DELETE FROM turmaaluno 
             WHERE alunoid = :idaluno AND turmaid = :idturma
@@ -51,7 +58,8 @@ class controleturmma {
         return $stmt->execute();
     }
 
-    public function listarTurmasProfessor($idprofessor) {
+    public function listarTurmasProfessor($idprofessor)
+    {
         $stmt = $this->conexao->prepare("
             SELECT * FROM turma WHERE professorid = :idprofessor
         ");
@@ -60,7 +68,8 @@ class controleturmma {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function turmaaluno($idaluno, $turmaid) {
+    public function turmaaluno($idaluno, $turmaid)
+    {
         $sql = "INSERT INTO turmaaluno(alunoid, turmaid)
                 VALUES(:ealunoid, :eturmaid);";
 
@@ -71,7 +80,8 @@ class controleturmma {
         return $pstmt->execute();
     }
 
-    public function NomeTurma($idTurma) {
+    public function NomeTurma($idTurma)
+    {
         $stmt = $this->conexao->prepare("SELECT nome FROM turma WHERE id = :idturma");
         $stmt->bindValue(':idturma', $idTurma);
         $stmt->execute();
@@ -80,26 +90,28 @@ class controleturmma {
         return $turma['nome'] ?? null;
     }
 
-    public function getUltimaTurmaInserida() {
+    public function getUltimaTurmaInserida()
+    {
         return $this->conexao->lastInsertId();
     }
 
     public function buscarTurmasPorAluno($idAluno)
-{
-    $stmt = $this->conexao->prepare("
+    {
+        $stmt = $this->conexao->prepare("
         SELECT t.id
         FROM turma t
         INNER JOIN turmaaluno ta ON ta.turmaid = t.id
         WHERE ta.alunoid = :idAluno
     ");
 
-    $stmt->bindValue(':idAluno', $idAluno);
-    $stmt->execute();
+        $stmt->bindValue(':idAluno', $idAluno);
+        $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-    public function editarTurma(Turma $turma) {
+    public function editarTurma(Turma $turma)
+    {
         $sql = "UPDATE turma 
                 SET nome = :enome, descricao = :edescricao, professorid = :eprofessorid
                 WHERE id = :eid";

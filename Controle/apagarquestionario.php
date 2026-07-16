@@ -11,7 +11,7 @@ if (!$user->isLoggedIn()) {
     exit;
 }
 
-if (isset($_GET['idquestionario'])) {   
+if (isset($_GET['idquestionario'])) {
     $idquestionario = $_GET['idquestionario'];
     if ($questionario->apagarQuestionario($idquestionario)) {
         echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=../Telas/Questionarios.php'>

@@ -1,62 +1,74 @@
 <?php
-class Questionario{
-    private $id;
-    private $titulo;
-    private $descricao;
-    private $professorid;
-    private $turmaid;
+class Questionario
+{
+	private $id;
+	private $titulo;
+	private $descricao;
+	private $professorid;
+	private $turmaid;
 
-    public function __construct() {
+	public function __construct()
+	{
 		if (func_num_args() != 0) {
 			$atributos = func_get_args()[0];
 			foreach ($atributos as $atributo => $valor) {
-				if(isset($valor) && property_exists(get_class($this), $atributo)){
-					$this->$atributo = $valor;					
+				if (isset($valor) && property_exists(get_class($this), $atributo)) {
+					$this->$atributo = $valor;
 				}
 			}
 		}
 	}
-	public function getId() {
+	public function getId()
+	{
 		return $this->id;
 	}
-	
-	public function getTitulo() {
+
+	public function getTitulo()
+	{
 		return $this->titulo;
 	}
-	
-	public function getDescricao() {
+
+	public function getDescricao()
+	{
 		return $this->descricao;
 	}
-	
-	public function setId($id) {
+
+	public function setId($id)
+	{
 		$this->id = $id;
 	}
-	
-	
-	public function setTitulo($titulo) {
+
+
+	public function setTitulo($titulo)
+	{
 		$this->titulo = $titulo;
 	}
-	
-	public function setProfessorid($professorid) {
+
+	public function setProfessorid($professorid)
+	{
 		$this->professorid = $professorid;
 	}
-	
-	public function setDescricao($descricao) {
+
+	public function setDescricao($descricao)
+	{
 		$this->descricao = $descricao;
 	}
-	
-	public function getProfessorid() {
+
+	public function getProfessorid()
+	{
 		return $this->professorid;
 	}
-	
-	public function getTurmaid() {
+
+	public function getTurmaid()
+	{
 		return $this->turmaid;
 	}
-	
-	public function setTurmaid($turmaid) {
+
+	public function setTurmaid($turmaid)
+	{
 		$this->turmaid = $turmaid;
 	}
-	
-    
+
+
 }
 ?>

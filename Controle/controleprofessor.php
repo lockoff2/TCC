@@ -1,23 +1,27 @@
-<?php 
+<?php
 
 include_once __DIR__ . '/../Banco/conexao.php';
 
-class controleprofessor {
+class controleprofessor
+{
 
     private $conexao;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->conexao = new Conexao();
         $this->conexao = $this->conexao->conexao();
     }
 
-    public function todosprofessores() {
+    public function todosprofessores()
+    {
         $stmt = $this->conexao->prepare("SELECT * FROM professor;");
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
-    public function cadastrarprofessor(Professor $professor) {
+    public function cadastrarprofessor(Professor $professor)
+    {
         $sql = "INSERT INTO professor(nome, cpf, email, senha)
                 VALUES(:enome, :ecpf, :eemail, :esenha);";
 
@@ -30,7 +34,8 @@ class controleprofessor {
         return $pstmt->execute();
     }
 
-    public function buscarPorId($idProfessor) {
+    public function buscarPorId($idProfessor)
+    {
         $sql = "SELECT * FROM professor WHERE id = :idprof;";
         $pstmt = $this->conexao->prepare($sql);
         $pstmt->bindValue(':idprof', $idProfessor);
@@ -38,7 +43,8 @@ class controleprofessor {
         return $pstmt->fetch();
     }
 
-    public function login($email, $senha) {
+    public function login($email, $senha)
+    {
 
         $sql = "SELECT id, nome, cpf, email, senha 
                 FROM professor 
@@ -53,11 +59,11 @@ class controleprofessor {
         if ($pstmt->rowCount() > 0) {
             $result = $pstmt->fetch();
 
-            $_SESSION['logged_in']  = true;
-            $_SESSION['user_id']    = $result['id'];
+            $_SESSION['logged_in'] = true;
+            $_SESSION['user_id'] = $result['id'];
             $_SESSION['user_email'] = $result['email'];
-            $_SESSION['user_cpf']   = $result['cpf'];
-            $_SESSION['user_nome']  = $result['nome'];
+            $_SESSION['user_cpf'] = $result['cpf'];
+            $_SESSION['user_nome'] = $result['nome'];
 
             return true;
         }
@@ -65,21 +71,24 @@ class controleprofessor {
         return false;
     }
 
-    public function logout() {
+    public function logout()
+    {
         $_SESSION['logged_in'] = false;
         session_destroy();
         header('Location: ../Telas/login.php');
         exit;
     }
 
-    public function returnid() {
+    public function returnid()
+    {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         return $_SESSION['user_id'] ?? null;
     }
 
-    public function isLoggedIn() {
+    public function isLoggedIn()
+    {
         return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
     }
 }

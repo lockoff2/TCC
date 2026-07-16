@@ -22,11 +22,12 @@ if (!$idTurma) {
 
 
 $alunos = $alunoCtrl->listarAlunosPorTurma($idTurma);
-$todosAlunos = $alunoCtrl->todosalunos(); 
+$todosAlunos = $alunoCtrl->todosalunos();
 ?>
 
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,6 +42,7 @@ $todosAlunos = $alunoCtrl->todosalunos();
         }
     </script>
 </head>
+
 <body>
     <header>
         <h1>Gerenciar Alunos - Turma <?php echo htmlspecialchars($turmaCtrl->NomeTurma($idTurma)); ?></h1>
@@ -98,4 +100,5 @@ $todosAlunos = $alunoCtrl->todosalunos();
         <p>&copy; 2024 Sistema de Gestão de Turmas</p>
     </footer>
 </body>
+
 </html>

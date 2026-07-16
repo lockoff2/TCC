@@ -16,19 +16,19 @@ if (isset($_POST['nomeTurma']) && isset($_POST['descricao']) && isset($_POST['al
     $turma->setNome($nometurma);
     $turma->setProfessorid($professorid);
     $turma->setDescricao($descricao);
-    
+
     $turmaCtrl->cadastrarTurma($turma);
-    
+
     $idturma = $turmaCtrl->getUltimaTurmaInserida();
-    
+
     $turma->setId($idturma);
 
 
     foreach ($idaluno as $id) {
-        
-        $turmaCtrl->turmaaluno($id,$idturma);
+
+        $turmaCtrl->turmaaluno($id, $idturma);
     }
-    
+
     echo "
             <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=../../TCC/Telas/Turma.php'>
             <script type=\"text/javascript\">
@@ -36,6 +36,6 @@ if (isset($_POST['nomeTurma']) && isset($_POST['descricao']) && isset($_POST['al
             </script>
             ";
 
-} 
+}
 
 ?>
